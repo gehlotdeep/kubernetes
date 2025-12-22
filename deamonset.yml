@@ -1,7 +1,7 @@
 kind: DaemonSet
 apiVersion: apps/v1
 metadata:
-  name: nginx-daemonset
+  name: nginx-daemonSet
   namespace: nginx
 spec:
   selector:
