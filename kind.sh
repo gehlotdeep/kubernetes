@@ -1,21 +1,16 @@
-# 2. Install Kind (based on architecture)
-# ----------------------------
-if ! command -v kind &>/dev/null; then
-  echo "📦 Installing Kind..."
+#! /bin/bash
+[ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.25.0/kind-linux-amd64
+chmod +x ./kind
+sudo cp ./kind /usr/local/bin/kind
+VERSION="v1.30.0"
+URL="https: //dl.k8s.io/release/${VERSION}/bin/linux/amd64/kubectl"
+INSTALL_DIR="/usr/local/bin"
 
-  ARCH=$(uname -m)
-  if [ "$ARCH" = "x86_64" ]; then
-    curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.29.0/kind-linux-amd64
-  elif [ "$ARCH" = "aarch64" ]; then
-    curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.29.0/kind-linux-arm64
-  else
-    echo "❌ Unsupported architecture: $ARCH"
-    exit 1
-  fi
+curl -LOs "$URL"
+chmod +X kubectl
+sudo mv kubectl $INSTALL_DIR/
+kubectl version --client
 
-  chmod +x ./kind
-  sudo mv ./kind /usr/local/bin/kind
-  echo "✅ Kind installed successfully."
-else
-  echo "✅ Kind is already installed."
-fi
+rm -f kubectl
+rm -rf kind
+echo "kind & kubectl installation complete."
