@@ -20,6 +20,13 @@ spec:
         image: deepakgehlot/notes-app-k8s
         ports:
         - containerPort: 8000
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 200m
+            memory: 265Mi
         livenessProbe:
           httpGet:
             path: /
